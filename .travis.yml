@@ -1,0 +1,80 @@
+language: php
+
+php:
+  - 5.3
+
+
+env:
+  global:
+    # Your Pantheon site's UUID (e.g. from your dashboard URL)
+    - PUUID='7b67ea8d-0c67-41ec-9358-147b74181022'
+
+    # Your Pantheon site's name.
+    - PNAME='drush-make-example'
+
+    # The Pantheon environment to test against.
+    - PENV='dev'
+
+    # The user you interact with Pantheon as
+    - PEMAIL='josh+travis@getpantheon.com'
+
+    # A random password for the Drupal site install.
+    - RANDPASS=$(cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1 )
+
+    # SECRET/PRIVATE VARIABLES
+    #
+    # These are created by using the travis command locally to encrypt some values.
+    #
+    # See: http://docs.travis-ci.com/user/build-configuration/#Secure-environment-variables
+    #
+    # PEMAIL environment variable: represents the Pantheon account e-mail with
+    # access to this site. Used to authenticate to Pantheon via Terminus. You
+    # must cd to your project root and run:
+    #
+    # travis encrypt PEMAIL='test@example.com'
+    #
+    - secure: "HHaqURVDTl38qKhnq6Q8DPz0yJ+Qo7SHMTm1lZNZrZDHZuLb4kfGtA+gBuURKSaERIb8cBTXzduame+2FasHTM47K0BeKIEflJblR2cCr8n15iR1SaGJ11X86a17I1Wo+Iq+sHO3W1mQbNUyfDBbcqQtzMbWCWybdic08gGpYhM="
+
+    #
+    # PPASS environment variable: represents the Pantheon account password for
+    # the above encrypted e-mail address. Run:
+    #
+    # travis encrypt PPASS='my_account_password'
+    #
+    - secure: "HpD62aklXeVIbL4Xk1YpFbPSdG2YmySjJzs9fOKn+uwl1lQo9sstaAZ+UwWaiKg2O1DNs1/T4q8c64fTWz/l843uEnWTbZHtFkNsLK8s+WmCG2ehxNFa0r8tCdEL18dnnsAR+WidPmFuvXeXY2Eg1ieOC/XCmRBlTHNMhLKDqGI="
+
+before_install:
+    # Place a passphrase-free ssh key so that you can clone and push to your
+    # Pantheon git repository.
+    #
+    # Use the travis encrypt-file command to generate your own.
+    #
+    # See: http://docs.travis-ci.com/user/encrypting-files/
+    #
+    - openssl aes-256-cbc -K $encrypted_dfede703c127_key -iv $encrypted_dfede703c127_iv -in travis_rsa.enc -out ~/.ssh/id_rsa -d
+    - chmod 0600 ~/.ssh/id_rsa
+
+install:
+    - bash scripts/install.sh
+
+before_script:
+  # Could add more things to prep for the test run here.
+
+script:
+    - bash scripts/run_tests.sh
+
+after_script:
+  # General-purpose clean-up could go here.
+
+after_success:
+  # Maybe promote to test here?
+
+after_failure:
+  # Maybe roll back?
+
+notifications:
+  email:
+    recipients:
+      # - panopoly-ci@googlegroups.com
+    on_success: always
+    on_failure: always
