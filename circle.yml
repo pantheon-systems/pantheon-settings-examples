@@ -1,0 +1,102 @@
+# https://circleci.com/docs/configuration#machine
+machine:
+  php:
+    version: 5.5.11
+  environment:
+    PUUID: 'ed64345a-aa95-4e9e-b919-1fe9e8537ce6'
+    PNAME: '10stepstest'
+    PSOURCE: 'dev'
+    PSITE: $(cat /dev/urandom | tr -cd 'a-z0-9' | head -c 4)
+    PSITE: "ci$TRAVIS_BUILD_NUMBER-$PSITE"
+    HOST: "https://$PSITE-$PNAME.gotpantheon.com"
+  
+dependencies:
+  pre:
+    # Dynamic hosts through Pantheon mean constantly checking interactively
+    # that we mean to connect to an unknown host. We ignore those here.
+    - echo "StrictHostKeyChecking no" > ~/.ssh/config
+ 
+    # Install Drush.
+    - composer global require drush/drush:6.2.0
+    - export PATH="$HOME/.composer/vendor/bin:$PATH"
+ 
+    # Install Terminus.
+    - git clone https://github.com/pantheon-systems/terminus.git $HOME/.drush/terminus
+    - cd $HOME/.drush/terminus
+    - composer update --no-dev
+    - drush cc drush
+
+  # Install additional test dependencies here (like Casper, Behat, etc).
+  override:
+    - echo -n $id_rsa_{00..30} >> ~/.ssh/id_rsa_base64
+    - base64 --decode --ignore-garbage ~/.ssh/id_rsa_base64 > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    # Authenticate with Pantheon via Terminus.
+    - drush pauth $PEMAIL --password=$PPASS
+ 
+    # Add Pantheon as a remote to our repo and force push to it.
+    - cd $TRAVIS_BUILD_DIR
+    - git checkout -b $PSITE
+    - drush make drupal-org.make -y 
+    - git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git
+    - git config --global user.email "training@getpantheon.com"
+    - git config --global user.name "Pantheon Training"
+    - git add /$TRAVIS_BUILD_DIR
+    - git commit -m "Initial build"
+    # Ensure the target is in git mode
+    - drush psite-cmode $PUUID dev git
+    - git fsck --full
+    - git push --force pantheon $PSITE
+ 
+    # Create a new Pantheon environment using the above branch.
+    - drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true
+ 
+    # Update our drush aliases file.
+    - drush paliases
+    - drush cc drush
+ 
+    # We cannot be in a Drupal directory to run aliased drush commands.
+    - cd $HOME
+ 
+    # When new modules are added to the codebase, updb can sometimes fail (thus
+    # causing a failed build) because the system table and modules are out of
+    # sync. We get around this by clearing all caches before attempting anything.
+    # The "|| true" works around issues where Views and Block conflict during
+    # cache clears / block rehashes.
+    - drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true
+ 
+    # Run all available updates as if deploying. For now, append the
+    # --strict=0 option for Drush 6.x compatibility on Pantheon.
+    - drush @pantheon.$PNAME.$PSITE updb -y --strict=0
+ 
+    # Enable additional test dependencies here, like SimpleTest.
+    - drush @pantheon.$PNAME.$PSITE en simpletest -y --strict=0
+ 
+    # If you're using SimpleTest, you'll want to disable verbose logging. This
+    # ensures no false build failures from file write errors.
+    - drush @pantheon.$PNAME.$PSITE vset -y simpletest_verbose 0 --strict=0
+ 
+test:
+  override:
+    #
+    # This is where you run your tests, be they SimpleTest, Casper, Behat,
+    # or otherwise. Here's a SimpleTest example. I've found that drush
+    # likes to exit with odd codes if you run multiple classes at once.
+    # You may have to run one class at a time.
+    #
+    - drush @pantheon.$PNAME.$PSITE test-run MyTestClass --strict=0
+    - drush @pantheon.$PNAME.$PSITE test-run MyTestClass2 --strict=0
+ 
+  post:
+  # Destroy the Pantheon environment
+  - drush psite-edelete $PUUID $PSITE -y
+ 
+  # Delete the git branch we created.
+  - cd $TRAVIS_BUILD_DIR; git push pantheon :$PSITE
+
+# notifications:
+#  email:
+#    recipients: 
+#    on_success: always
+#    on_failure: always
