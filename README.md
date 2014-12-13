@@ -30,3 +30,6 @@ Feel free to fork and contribute to this code. :)
 
 Created and maintained by [Pantheon](https://www.getpantheon.com)
  
+## License 
+
+The content of this project itself is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php).
