@@ -1,4 +1,4 @@
-## Pantheon boilerplate configuration & settings files [![Circle CI](https://circleci.com/gh/timani/pantheon-settings-examples.svg?style=svg)](https://circleci.com/gh/timani/pantheon-settings-examples)
+## Pantheon boilerplate config & settings files [![Circle CI](https://circleci.com/gh/timani/pantheon-settings-examples.svg?style=svg)](https://circleci.com/gh/timani/pantheon-settings-examples)
 
 Pantheon optimized examples for hard-coded Drupal and WordPress configuration. Include these within your site in order to get boilerplate going for your site.
 
