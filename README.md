@@ -1,4 +1,4 @@
-![Pantheon configuration files for Drupal and WordPress](https://github.com/timani/pantheon-settings-example/raw/structure/assets/images/pantheon-first-banner.png)
+![Pantheon configuration files for Drupal and WordPress](https://raw.githubusercontent.com/timani/pantheon-settings-examples/master/assets/images/pantheon-first-banner.png)
 
 
 ## Pantheon configuration files for Drupal & WordPress
