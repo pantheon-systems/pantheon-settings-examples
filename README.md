@@ -1,8 +1,21 @@
-## Pantheon configuration files for Drupal & WordPress
+## Pantheon boilerplate configuration & settings files [![Circle CI](https://circleci.com/gh/timani/pantheon-settings-examples.svg?style=svg)](https://circleci.com/gh/timani/pantheon-settings-examples)
 
-![Pantheon configuration files for Drupal and WordPress](https://raw.githubusercontent.com/timani/pantheon-settings-examples/master/assets/images/pantheon-first-banner.png)
+Pantheon optimized examples for hard-coded Drupal and WordPress configuration. Include these within your site in order to get boilerplate going for your site.
 
-Pantheon optimized examples for hard-coded Drupal configuration in settings.php
+![Pantheon boilerplate & starter](https://raw.githubusercontent.com/timani/pantheon-settings-examples/master/assets/images/pantheon-first-banner.png) 
+
+Pantheon optimized examples for hard-coded Drupal and WordPress configuration. Include these within your site in order to get boilerplate going for your site.
+
+## Documentation
+
+Include these within your site in order to get boilerplate going for your site.
+
+- [Getting started] (#)
+- [Drupal] (#)
+ - [D7] (#)
+ - [D8] (#)
+- [WordPress] (#)
+- [Tests] (#)
 
 ## Contributing
 Feel free to fork and contribute to this code. :)
