@@ -1,8 +1,6 @@
-![Pantheon configuration files for Drupal and WordPress](https://raw.githubusercontent.com/timani/pantheon-settings-examples/master/assets/images/pantheon-first-banner.png)
-
-
 ## Pantheon configuration files for Drupal & WordPress
-================
+
+![Pantheon configuration files for Drupal and WordPress](https://raw.githubusercontent.com/timani/pantheon-settings-examples/master/assets/images/pantheon-first-banner.png)
 
 Pantheon optimized examples for hard-coded Drupal configuration in settings.php
 
