@@ -1,8 +1,16 @@
 ## Pantheon configuration files for Drupal & WordPress
 
+Pantheon optimized examples for hard-coded Drupal and WordPress configuration. Include these within your site in order to get boilerplate going for your site.
+
 ![Pantheon configuration files for Drupal and WordPress](https://raw.githubusercontent.com/timani/pantheon-settings-examples/master/assets/images/pantheon-first-banner.png)
 
-Pantheon optimized examples for hard-coded Drupal configuration in settings.php
+## Documentation
+- [Getting started] (#)
+- [Drupal] (#)
+ - [D7] (#)
+ - [D8] (#)
+- [WordPress] (#)
+- [Tests] (#)
 
 ## Contributing
 Feel free to fork and contribute to this code. :)
