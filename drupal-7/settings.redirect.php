@@ -28,7 +28,7 @@ if (FALSE && isset($_SERVER['PANTHEON_ENVIRONMENT']) && $_SERVER['PANTHEON_ENVIR
 if (FALSE && isset($_SERVER['PANTHEON_ENVIRONMENT']) && $_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
   if ($_SERVER['HTTP_HOST'] == 'yoursite.com' || !isset($_SERVER['HTTP_X_SSL']) || $_SERVER['HTTP_X_SSL'] != 'ON' ) {
     header('HTTP/1.1 301 Moved Permanently');
-    header('Location: http://www.yoursite.com'. $_SERVER['REQUEST_URI']);
+    header('Location: https://www.yoursite.com'. $_SERVER['REQUEST_URI']);
     exit;
   }
 }
