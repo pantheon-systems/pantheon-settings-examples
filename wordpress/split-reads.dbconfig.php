@@ -1,6 +1,5 @@
 <?php
 /**
- * Use HyperDB to split reads between master and replica
  * Register the master server to HyperDB
  */
 $wpdb->add_database( array(
