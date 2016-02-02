@@ -1,0 +1,7 @@
+// Pantheon - all (web and CLI) operations.
+if (defined('PANTHEON_ENVIRONMENT')) {
+  // Only on dev environment.
+  if (PANTHEON_ENVIRONMENT == 'dev') {
+    // Custom code.
+  }
+}
