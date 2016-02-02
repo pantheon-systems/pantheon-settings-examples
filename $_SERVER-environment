@@ -1,0 +1,7 @@
+// Pantheon - web only.
+if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
+  // Only on dev web environment.
+  if ($_SERVER['PANTHEON_ENVIRONMENT'] == 'dev') {
+    // Custom code.
+  }
+}
