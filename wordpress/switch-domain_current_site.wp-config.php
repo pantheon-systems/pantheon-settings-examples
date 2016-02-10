@@ -4,7 +4,7 @@
 if ( ! empty( $_ENV['PANTHEON_ENVIRONMENT'] ) ) {
 	switch( $_ENV['PANTHEON_ENVIRONMENT'] ) {
 		case 'live':
-			define( 'DOMAIN_CURRENT_SITE', 'www.example-network.com );
+			define( 'DOMAIN_CURRENT_SITE', 'www.example-network.com' );
 			break;
 		case 'test':
 			define( 'DOMAIN_CURRENT_SITE', 'www.test.example-network.com' );
