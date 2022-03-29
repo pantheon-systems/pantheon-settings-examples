@@ -1,4 +1,6 @@
 ## Pantheon boilerplate config & settings files [![Circle CI](https://circleci.com/gh/timani/pantheon-settings-examples.svg?style=svg)](https://circleci.com/gh/timani/pantheon-settings-examples)
+[![Deprecated](https://img.shields.io/badge/Pantheon-Deprecated-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#deprecated)
+
 
 Pantheon optimized examples for hard-coded Drupal and WordPress configuration. Include these within your site in order to get boilerplate going for your site.
 
